@@ -1,27 +1,19 @@
-import { ArrowRight, Copy, Mail } from "lucide-react";
-import { Button } from "@/components/button";
-import { IconButton } from "@/components/icon-button";
-import { InputField, InputIcon, InputRoot } from "@/components/input";
+import Image from 'next/image';
+
+import logo from '../assets/logo.svg';
 
 export default function Home() {
-  return (
-    <main>
-      <div className="text-white">Hello world!</div>
-      <Button type="submit">
-        Enviar
-        <ArrowRight />
-      </Button>
+	return (
+		<main className="max-w-[1240px] mx-auto px-5 py-8 md:py-0">
+			<div className="h-dvh flex justify-center gap-16 flex-col md:flex-row">
+				<div className="flex flex-col gap-8 items-center md:items-start w-full max-w-[550px]">
+					<Image src={logo} alt="devstage" width={108.5} height={30} />
 
-      <IconButton>
-        <Copy />
-      </IconButton>
-
-      <InputRoot>
-        <InputIcon>
-          <Mail />
-        </InputIcon>
-        <InputField />
-      </InputRoot>
-    </main>
-  );
+					<h1 className="text-4xl text-center leading-none font-heading font-medium flex flex-col md:text-7xl md:text-left">
+						<span className="text-blue">CodeCraft</span>Summit 2025
+					</h1>
+				</div>
+			</div>
+		</main>
+	);
 }
