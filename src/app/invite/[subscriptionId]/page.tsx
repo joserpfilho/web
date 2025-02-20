@@ -6,12 +6,12 @@ import { Ranking } from './ranking';
 import { Stats } from './stats';
 
 interface InvitePageProps {
-	params: Promise<{ subscriptionId: string }>;
+	params: Promise<{ subscriberId: string }>;
 }
 
 export default async function InvitePage(props: InvitePageProps) {
-	const { subscriptionId } = await props.params;
-	const inviteLink = `http://localhost:3333/invites/${subscriptionId}`;
+	const { subscriberId } = await props.params;
+	const inviteLink = `http://localhost:3333/invites/${subscriberId}`;
 
 	return (
 		<div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
@@ -39,8 +39,9 @@ export default async function InvitePage(props: InvitePageProps) {
 					</div>
 				</div>
 				<InviteLinkInput inviteLink={inviteLink} />
-				<Stats />
+				<Stats subscriberId={subscriberId} />
 			</div>
+			1
 			<Ranking />
 		</div>
 	);

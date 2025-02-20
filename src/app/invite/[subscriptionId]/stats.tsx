@@ -1,6 +1,14 @@
+import { getSubscriberInviteClicks } from '@/http/api';
+
 import { BadgeCheck, Medal, MousePointerClick } from 'lucide-react';
 
-export function Stats() {
+interface StatsProps {
+	subscriberId: string;
+}
+
+export async function Stats({ subscriberId }: StatsProps) {
+	const accessCount = await getSubscriberInviteClicks(subscriberId);
+
 	return (
 		<div className="grid gap-3 md:grid-cols-3">
 			<div className="relative bg-gray-700 border border-gray-600 px-4 py-7 flex flex-col items-center justify-center gap-1 rounded-xl">
