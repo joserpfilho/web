@@ -1,9 +1,12 @@
+'use client';
+
 import { Button } from '@/components/button';
-import { InputField, InputIcon, InputRoot } from '@/components/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Mail, User } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { InputField, InputIcon, InputRoot } from '../../components/input';
 
 const subscriptionSchema = z.object({
 	name: z.string().min(2, 'Digite seu nome completo'),
@@ -13,6 +16,9 @@ const subscriptionSchema = z.object({
 type SubscriptionSchema = z.infer<typeof subscriptionSchema>;
 
 export function SubscriptionForm() {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+
 	const {
 		register,
 		handleSubmit,
@@ -21,14 +27,14 @@ export function SubscriptionForm() {
 		resolver: zodResolver(subscriptionSchema),
 	});
 
-	function onSubscribe(data: SubscriptionSchema) {
-		console.log(data);
+	async function onSubscribe({ name, email }: SubscriptionSchema) {
+		const referrer = searchParams.get('referrer');
 	}
 
 	return (
 		<form
 			onSubmit={handleSubmit(onSubscribe)}
-			className="bg-gray-700 border border-gray-600 rounded-2xl p-8 space-y-6 w-full md:max-w-[440px]"
+			className="w-full bg-gray-700 border border-gray-600 rounded-2xl p-8 space-y-6 md:max-w-[440px]"
 		>
 			<h2 className="font-heading font-semibold text-gray-200 text-xl">
 				Inscrição
@@ -36,9 +42,9 @@ export function SubscriptionForm() {
 
 			<div className="space-y-3">
 				<div className="space-y-2">
-					<InputRoot>
+					<InputRoot error={!!errors?.name}>
 						<InputIcon>
-							<User />
+							<User className="size-6" />
 						</InputIcon>
 						<InputField
 							type="text"
@@ -47,27 +53,27 @@ export function SubscriptionForm() {
 						/>
 					</InputRoot>
 
-					{errors.name && (
-						<p className="text-danger text-xs font-semibold">
+					{errors?.name && (
+						<p className="text-danger font-semibold text-xs">
 							{errors.name.message}
 						</p>
 					)}
 				</div>
 
 				<div className="space-y-2">
-					<InputRoot>
+					<InputRoot error={!!errors?.email}>
 						<InputIcon>
-							<Mail />
+							<Mail className="size-6" />
 						</InputIcon>
 						<InputField
-							type="email"
+							type="text"
 							placeholder="E-mail"
 							{...register('email')}
 						/>
 					</InputRoot>
 
-					{errors.email && (
-						<p className="text-danger text-xs font-semibold">
+					{errors?.email && (
+						<p className="text-danger font-semibold text-xs">
 							{errors.email.message}
 						</p>
 					)}
@@ -76,7 +82,7 @@ export function SubscriptionForm() {
 
 			<Button type="submit">
 				Confirmar
-				<ArrowRight />
+				<ArrowRight className="size-6" />
 			</Button>
 		</form>
 	);
