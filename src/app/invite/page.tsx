@@ -6,7 +6,7 @@ import { BadgeCheck, Copy, Link, Medal, MousePointerClick } from 'lucide-react';
 
 import cooper from '../../assets/cooper.svg';
 import logo from '../../assets/logo.svg';
-import gold from '../../assets/medal-gols.svg';
+import gold from '../../assets/medal-gold.svg';
 import silver from '../../assets/silver.svg';
 
 export default function InvitePage() {
